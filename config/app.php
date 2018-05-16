@@ -138,6 +138,10 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         // 追加
         Collective\Html\HtmlServiceProvider::class,
+        // 追加
+        Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
+    
+
 
         /*
          * Application Service Providers...
@@ -197,6 +201,7 @@ return [
         // 追加
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Gravatar' => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
 
     ],
 
