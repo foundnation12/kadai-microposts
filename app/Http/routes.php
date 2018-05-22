@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'WelcomeController@index');
+
 
 // ユーザ登録
 Route::get('signup', 'Auth\AuthController@getRegister')->name('signup.get');
@@ -35,4 +34,11 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::resource('microposts', 'MicropostsController', ['only' => ['store', 'destroy']]);
+    
+//お気に入り機能
+Route::group(['prefix' => 'users/{id}'], function () {
+       Route::post('favorite', 'MicropostFavoriteController@store')->name('micropost.favorite');
+       Route::delete('unfavorite', 'MicropostFavoriteController@destroy')->name('micropost.unfavorite');
+       Route::get('favorites', 'MicropostsController@favorites')->name('users.favorites');
+   });
 });
