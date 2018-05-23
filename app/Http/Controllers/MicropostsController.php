@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\User;
+
 class MicropostsController extends Controller
 {
     /**
@@ -99,17 +101,17 @@ class MicropostsController extends Controller
         return redirect()->back();
     }
     
-    public function favorites()
+    public function favorites($id)
    {
        $data = [];
        if (\Auth::check()) {
-          $user = \Auth::user();
-          $favorites = $user->favorites()->orderBy('created_at', 'desc')->paginate(10);
+          $users = User::find($id);
+          $favorites = $users->favorites()->orderBy('created_at', 'desc')->paginate(10);
           $data = [
-              'user' => $user,
+              'user' => $users,
               'favorites' => $favorites
               ];
-    $count = $this->count($user);
+    $count = $this->count($users);
     $data = array_merge($data, $count);
      
     return view('users.favorites', $data);
